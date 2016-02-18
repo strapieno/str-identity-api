@@ -4,9 +4,13 @@
   "require": {
     "php": ">=5.5.0",
     "zfcampus/zf-rpc": "~1.0",
+    "zfcampus/zf-hal": "~1.0",
     "matryoshka-model/matryoshka": "0.8.*@dev",
     "matryoshka-model/mongo-wrapper": "0.8.*@dev",
-    "matryoshka-model/zf2-matryoshka-module": "0.8.*@dev",
+    "matryoshka-model/zf-apigility-matryoshka": "dev-develop",
+    "matryoshka-model/zf2-matryoshka-module": "dev-develop",
+    "ripaclub/aclman": "dev-develop@dev",
+    "strapieno/str-auth-api" : "dev-develop",
     "strapieno/str-auth-model" : "dev-develop",
     "strapieno/str-user-model" : "dev-develop",
     "strapieno/str-utils" : "dev-develop"
@@ -29,6 +33,10 @@
     {
       "type": "vcs",
       "url": "git@github.com:matryoshka-model/zf-apigility-matryoshka.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:strapieno/str-auth-api.git"
     },
     {
       "type": "vcs",

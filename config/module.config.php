@@ -1,5 +1,4 @@
 <?php
-
 return [
     'router' => [
         'routes' => [
@@ -37,6 +36,9 @@ return [
         ]
     ],
      'zf-content-negotiation' => [
+         'controllers' => [
+             'Strapieno\Identity\Api\V1\RpcController' => 'HalJson',
+         ],
         'accept_whitelist' => [
             'Strapieno\Identity\Api\V1\RpcController' => [
                 'application/hal+json',
@@ -50,10 +52,15 @@ return [
             ]
         ]
     ],
-    'zf-content-validation' => [
-        'Strapieno\Identity\Api\V1\RpcController' => [
-
-        ]
+    'zf-hal' => [
+        'metadata_map' => [
+            'Strapieno\User\Model\Entity\UserEntity' => [
+                'entity_identifier_name' => 'id',
+                'route_name' => 'api-rest/user',
+                'route_identifier_name' => 'user_id',
+                'hydrator' => 'UserApiHydrator',
+            ],
+        ],
     ],
 ];
 

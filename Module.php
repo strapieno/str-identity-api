@@ -10,7 +10,7 @@ use Zend\Stdlib\ArrayUtils;
 /**
  * Class Module
  */
-class Module implements InputFilterProviderInterface
+class Module
 {
     /**
      * @return array

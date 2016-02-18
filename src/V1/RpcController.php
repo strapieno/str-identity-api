@@ -3,6 +3,8 @@
 namespace Strapieno\Identity\Api\V1;
 
 use Matryoshka\Model\Object\ActiveRecord\ActiveRecordInterface;
+use Matryoshka\Model\Object\IdentityAwareInterface;
+use Strapieno\Auth\Api\Identity\IdentityInterface;
 use Strapieno\User\Model\Criteria\Mongo\UserMongoCollectionCriteria;
 use Strapieno\User\Model\Entity\State\UserStateAwareInterface;
 use Strapieno\User\Model\UserModelInterface;
@@ -13,6 +15,8 @@ use Zend\Mvc\MvcEvent;
 use Zend\View\Model\JsonModel;
 use ZF\ApiProblem\ApiProblem;
 use ZF\ApiProblem\View\ApiProblemModel;
+use ZF\ContentNegotiation\ViewModel;
+use ZF\Hal\Entity;
 use ZF\Rpc\RpcController as ApigilityRpcController;
 
 /**
@@ -25,7 +29,35 @@ class RpcController extends ApigilityRpcController
      */
     public function getIdentity(MvcEvent $e)
     {
-        $identity = $app->getServiceManager()->get('api-identity');
-        var_dump($identity); die();
+        $identity = $e->getApplication()->getServiceManager()->get('api-identity');
+
+        if (!$identity instanceof IdentityInterface) {
+            throw new \DomainException(
+                sprintf(
+                    'Invalid identity given %s expected %s',
+                    is_object($identity) ? get_class($identity) : gettype($identity),
+                    'Strapieno\Auth\Api\Identity\IdentityInterface'
+                )
+            );
+        }
+
+        $identityObject = $identity->getAuthenticationObject();
+
+        if ($identityObject) {
+
+            if (!$identityObject instanceof IdentityAwareInterface) {
+                throw new \DomainException(
+                    sprintf(
+                        'Invalid identityObject given %s expected %s',
+                        is_object($identityObject) ? get_class($identityObject) : gettype($identityObject),
+                        'Matryoshka\Model\Object\IdentityAwareInterface'
+                    )
+                );
+            }
+
+            return new ViewModel(['payload' => new Entity($identityObject, $identityObject->getId())]);
+        }
+
+        return new ApiProblemModel(new ApiProblem(404, 'Identity not found'));
     }
 }
