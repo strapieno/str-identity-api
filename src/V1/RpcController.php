@@ -17,6 +17,7 @@ use ZF\ApiProblem\ApiProblem;
 use ZF\ApiProblem\View\ApiProblemModel;
 use ZF\ContentNegotiation\ViewModel;
 use ZF\Hal\Entity;
+use ZF\MvcAuth\Identity\GuestIdentity;
 use ZF\Rpc\RpcController as ApigilityRpcController;
 
 /**
@@ -26,10 +27,15 @@ class RpcController extends ApigilityRpcController
 {
     /**
      * @param MvcEvent $e
+     * @return ApiProblemModel|ViewModel
      */
     public function getIdentity(MvcEvent $e)
     {
         $identity = $e->getApplication()->getServiceManager()->get('api-identity');
+
+        if ($identity instanceof GuestIdentity) {
+            return new ApiProblemModel(new ApiProblem(404, 'Identity not found'));
+        }
 
         if (!$identity instanceof IdentityInterface) {
             throw new \DomainException(
