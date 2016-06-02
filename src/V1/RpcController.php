@@ -20,7 +20,7 @@ use ZF\Hal\Entity;
 use ZF\MvcAuth\Identity\GuestIdentity;
 use ZF\Rpc\RpcController as ApigilityRpcController;
 
-/**
+/***
  * Class RpcController
  */
 class RpcController extends ApigilityRpcController
