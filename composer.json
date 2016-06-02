@@ -33,22 +33,6 @@
     {
       "type": "vcs",
       "url": "git@github.com:matryoshka-model/zf-apigility-matryoshka.git"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:strapieno/str-auth-api.git"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:strapieno/str-auth-model.git"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:strapieno/str-user-model.git"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:strapieno/str-utils.git"
     }
   ],
   "authors": [
@@ -57,5 +41,6 @@
       "email": "antonino.visalli@gmail.com",
       "homepage": "http://github.com/visa4"
     }
-  ]
+  ],
+  "minimum-stability": "dev"
 }
